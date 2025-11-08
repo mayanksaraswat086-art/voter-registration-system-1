@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoteEase - Secure Voter Registration</title>
+  
+  <!-- Tailwind & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind Custom Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'gov-blue': '#1e40af',
+            'gov-light-blue': '#3b82f6',
+            'gov-gray': '#6b7280',
+            'gov-light-gray': '#f3f4f6'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-gov-blue text-white shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-vote-ye text-2xl"></i>
+        <h1 class="text-2xl font-bold">VoteEase</h1>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#" class="nav-link active hover:text-gov-light-blue" data-page="home">Home</a>
+        <a href="#" class="nav-link hover:text-gov-light-blue" data-page="register">Register</a>
+        <a href="#" class="nav-link hover:text-gov-light-blue" data-page="verify">Verify</a>
+        <a href="#" class="nav-link hover:text-gov-light-blue" data-page="contact">Contact</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden text-white">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-gov-blue py-4">
+      <div class="container mx-auto px-4 flex flex-col space-y-3">
+        <a href="#" class="nav-link active py-2" data-page="home">Home</a>
+        <a href="#" class="nav-link py-2" data-page="register">Register</a>
+        <a href="#" class="nav-link py-2" data-page="verify">Verify</a>
+        <a href="#" class="nav-link py-2" data-page="contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="container mx-auto px-4 py-8">
+    <!-- Home Page -->
+    <div id="home-page" class="page-content slide-in">
+      <section class="hero bg-gradient-to-r from-gov-blue to-gov-light-blue text-white rounded-xl p-8 md:p-12 mb-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="relative z-10">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">Secure. Simple. Smart Voter Registration.</h1>
+          <p class="text-xl mb-8 max-w-2xl">Register to vote with our secure, easy-to-use platform designed for citizens like you.</p>
+          <button id="register-cta" class="bg-white text-gov-blue hover:bg-gov-light-gray font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            Register Now
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="register-page" class="page-content slide-in hidden">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Voter Registration</h2>
+        <form id="registration-form" class="bg-white p-8 rounded-xl shadow-md">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block text-gray-700 mb-2">Full Name *</label>
+              <div class="relative">
+                <i class="fas fa-user absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="full-name" class="input-field" placeholder="Enter your full name">
+              </div>
+              <p id="name-error" class="error hidden">Please enter your full name</p>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-2">Date of Birth *</label>
+              <div class="relative">
+                <i class="fas fa-calendar absolute left-3 top-3 text-gray-400"></i>
+                <input type="date" id="dob" class="input-field">
+              </div>
+              <p id="dob-error" class="error hidden">Please enter your date of birth</p>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-gray-700 mb-2">Gender *</label>
+            <div class="relative">
+              <i class="fas fa-venus-mars absolute left-3 top-3 text-gray-400"></i>
+              <select id="gender" class="input-field">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <p id="gender-error" class="error hidden">Please select your gender</p>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-gray-700 mb-2">Address *</label>
+            <div class="relative">
+              <i class="fas fa-home absolute left-3 top-3 text-gray-400"></i>
+              <textarea id="address" class="input-field" rows="3" placeholder="Enter your full address"></textarea>
+            </div>
+            <p id="address-error" class="error hidden">Please enter your address</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block text-gray-700 mb-2">Aadhar/ID Number *</label>
+              <div class="relative">
+                <i class="fas fa-id-card absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="id-number" class="input-field" placeholder="Enter Aadhar/ID number">
+              </div>
+              <p id="id-error" class="error hidden">Please enter your ID number</p>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-2">Email *</label>
+              <div class="relative">
+                <i class="fas fa-envelope absolute left-3 top-3 text-gray-400"></i>
+                <input type="email" id="email" class="input-field" placeholder="Enter your email">
+              </div>
+              <p id="email-error" class="error hidden">Please enter a valid email</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block text-gray-700 mb-2">Phone Number *</label>
+              <div class="relative">
+                <i class="fas fa-phone absolute left-3 top-3 text-gray-400"></i>
+                <input type="tel" id="phone" class="input-field" placeholder="Enter phone number">
+              </div>
+              <p id="phone-error" class="error hidden">Please enter a valid phone number</p>
+            </div>
+            <div>
+              <label class="block text-gray-700 mb-2">Upload Photo *</label>
+              <div class="relative">
+                <i class="fas fa-camera absolute left-3 top-3 text-gray-400"></i>
+                <input type="file" id="photo" class="input-field" accept="image/*">
+              </div>
+              <p id="photo-error" class="error hidden">Please upload a photo</p>
+            </div>
+          </div>
+
+          <div class="flex space-x-4">
+            <button type="submit" class="btn-primary flex-1">Submit Registration</button>
+            <button type="reset" class="btn-secondary">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gov-blue text-white py-12 text-center">
+    <p>&copy; 2023 VoteEase. All rights reserved. | Secured by Government Standards</p>
+  </footer>
+
+  <!-- External JS -->
+  <script src="script.js"></script>
+</body>
+</html>
